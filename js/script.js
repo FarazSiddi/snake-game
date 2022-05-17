@@ -13,6 +13,7 @@ let snake = [
 ];
 
 let score = 0;
+let topScore = 0;
 
 let changing_direction = false;
 
@@ -35,9 +36,14 @@ gen_food();
 document.addEventListener("keydown", change_direction); // Detects the keys being pressed
 
 function main() {
-  if (has_game_ended()) return;
+  if (has_game_ended()) {
+    if (score > topScore) topScore = score;
+    document.getElementById("top-score").innerHTML = "Top Score: " + topScore;
+    return;
+  }
 
   changing_direction = false;
+
   setTimeout(function onTick() {
     clearCanvas();
     drawFood();
@@ -147,7 +153,7 @@ function move_snake() {
   if (has_eaten_food) {
     // Increase Score
     score += 1;
-    document.getElementById("score").innerHTML = score;
+    document.getElementById("score").innerHTML = "Score: " + score;
     // Generate new food location
     gen_food();
   } else {

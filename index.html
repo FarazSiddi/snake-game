@@ -10,8 +10,21 @@
     <title>Snake Game</title>
   </head>
   <body>
-    <div id="score">0</div>
-    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <div class="scores-container">
+      <div class="score" id="score">Score: 0</div>
+      <div class="score" id="top-score">Top Score: 0</div>
+    </div>
+    <div class="container">
+      <canvas id="gameCanvas" width="400" height="400"></canvas>
+      <p class="message" id="game-over-message">Press 'ENTER' to play again!</p>
+      <p class="message" id="pause-message">PAUSED</p>
+    </div>
+    <div class="button-container">
+      <button class="button" id="reset-button">Pause</button>
+      <button>Difficulty: Normal</button>
+      <button>Background: Default</button>
+      <button>Help</button>
+    </div>
     <script src="js/script.js"></script>
   </body>
 </html>

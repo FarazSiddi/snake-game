@@ -50,6 +50,12 @@ html {
   color: #555;
 } */
 
+.container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 48px;
+}
+
 #snakeboard {
   position: absolute;
   top: 50%;
@@ -57,7 +63,32 @@ html {
   transform: translate(-50%, -50%);
 }
 
-#score {
+.scores-container {
+  display: flex;
+  justify-content: center;
+  gap: 288px;
+  margin: 24px 0;
+}
+
+.score {
   text-align: center;
-  font-size: 140px;
+  font-size: 72px;
+}
+
+.button-container {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(4, 200px);
+  grid-template-rows: 100px;
+  column-gap: 144px;
+}
+
+.message {
+  font-size: 24px;
+  position: absolute;
+  align-self: center;
+}
+
+#pause-message {
+  font-size: 48px;
 }
