@@ -1,3 +1,5 @@
+"use strict";
+
 // ===== SETUP =====
 const board_border = "black";
 const board_background = "white";
@@ -16,6 +18,7 @@ let score = 0;
 let topScore = 0;
 
 let changing_direction = false;
+let game_ended = false;
 
 // Food location (coordinates)
 let food_x;
@@ -28,17 +31,55 @@ let dy = 0;
 const snakeboard = document.getElementById("gameCanvas");
 const snakeboard_ctx = gameCanvas.getContext("2d");
 
+// Buttons
+const reset_button = document.getElementById("reset-button");
+const difficulty_button = document.getElementById("difficulty-button");
+const background_button = document.getElementById("background-button");
+const help_button = document.getElementById("help-button");
+
 // ===== MAIN =====
 // Starts the game
 main();
 gen_food();
+
+const resetGame = function () {
+  if (game_ended) {
+    snake = [
+      { x: 200, y: 200 },
+      { x: 190, y: 200 },
+      { x: 180, y: 200 },
+      { x: 170, y: 200 },
+      { x: 160, y: 200 },
+    ];
+    game_ended = false;
+    main();
+    gen_food();
+    score = 0;
+
+    dx = 10;
+    dy = 0;
+
+    document.getElementById("score").innerHTML = "Score: " + score;
+    document.getElementById("game-over-message").classList.add("hidden");
+  }
+};
+
+reset_button.addEventListener("click", resetGame); // Resets the game if the snake "dies"
+document.addEventListener("keydown", function (e) {
+  // Same with the event listener above
+  if (e.key === "Enter") {
+    resetGame();
+  }
+});
 
 document.addEventListener("keydown", change_direction); // Detects the keys being pressed
 
 function main() {
   if (has_game_ended()) {
     if (score > topScore) topScore = score;
+    game_ended = true;
     document.getElementById("top-score").innerHTML = "Top Score: " + topScore;
+    document.getElementById("game-over-message").classList.remove("hidden");
     return;
   }
 

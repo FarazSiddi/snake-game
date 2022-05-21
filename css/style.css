@@ -92,3 +92,7 @@ html {
 #pause-message {
   font-size: 48px;
 }
+
+.hidden {
+  display: none;
+}

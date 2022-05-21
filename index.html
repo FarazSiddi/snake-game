@@ -16,14 +16,16 @@
     </div>
     <div class="container">
       <canvas id="gameCanvas" width="400" height="400"></canvas>
-      <p class="message" id="game-over-message">Press 'ENTER' to play again!</p>
-      <p class="message" id="pause-message">PAUSED</p>
+      <p class="message hidden" id="game-over-message">
+        Press 'ENTER' to play again!
+      </p>
+      <p class="message hidden" id="pause-message">PAUSED</p>
     </div>
     <div class="button-container">
-      <button class="button" id="reset-button">Pause</button>
-      <button>Difficulty: Normal</button>
-      <button>Background: Default</button>
-      <button>Help</button>
+      <button class="button" id="reset-button">Reset</button>
+      <button class="button" id="difficulty-button">Difficulty: Normal</button>
+      <button class="button" id="background-button">Background: Default</button>
+      <button class="button" id="help-button">Help</button>
     </div>
     <script src="js/script.js"></script>
   </body>
