@@ -28,6 +28,11 @@ let food_y;
 let dx = 10;
 let dy = 0;
 
+// Tick Speed (Only applies when the game difficulty is Fast or Progressive)
+let tickSpeed = 100;
+// Difficulty (0 is Normal, 1 is Hard, and 2 is Progressive)
+let difficulty = "Normal";
+
 const snakeboard = document.getElementById("gameCanvas");
 const snakeboard_ctx = gameCanvas.getContext("2d");
 
@@ -64,6 +69,24 @@ const resetGame = function () {
   }
 };
 
+const adjustDifficulty = function () {
+  if (difficulty === "Normal") {
+    tickSpeed = 50;
+    difficulty_button.innerHTML = "Game Mode: Fast";
+    difficulty = "Fast";
+  } else if (difficulty === "Fast") {
+    tickSpeed = 100;
+    difficulty_button.innerHTML = "Game Mode: Progressive";
+    difficulty = "Progressive";
+  } else if (difficulty === "Progressive") {
+    tickSpeed = 100;
+    difficulty_button.innerHTML = "Game Mode: Normal";
+    difficulty = "Normal";
+  }
+};
+
+difficulty_button.addEventListener("click", adjustDifficulty);
+
 reset_button.addEventListener("click", resetGame); // Resets the game if the snake "dies"
 document.addEventListener("keydown", function (e) {
   // Same with the event listener above
@@ -77,6 +100,9 @@ document.addEventListener("keydown", change_direction); // Detects the keys bein
 function main() {
   if (has_game_ended()) {
     if (score > topScore) topScore = score;
+    if (difficulty === "Progressive") {
+      tickSpeed = 100;
+    }
     game_ended = true;
     document.getElementById("top-score").innerHTML = "Top Score: " + topScore;
     document.getElementById("game-over-message").classList.remove("hidden");
@@ -92,7 +118,7 @@ function main() {
     drawSnake();
     // repeat
     main();
-  }, 100);
+  }, tickSpeed);
 }
 
 // ===== DISPLAY =====
@@ -192,6 +218,9 @@ function move_snake() {
   snake.unshift(head);
   const has_eaten_food = snake[0].x === food_x && snake[0].y === food_y;
   if (has_eaten_food) {
+    if (difficulty === "Progressive") {
+      tickSpeed = tickSpeed * 0.95;
+    }
     // Increase Score
     score += 1;
     document.getElementById("score").innerHTML = "Score: " + score;
