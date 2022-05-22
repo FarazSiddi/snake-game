@@ -1,10 +1,10 @@
 "use strict";
 
 // ===== SETUP =====
-const board_border = "black";
-const board_background = "white";
-const snake_col = "lightgreen";
-const snake_border = "darkgreen";
+let board_border = "black";
+let board_background = "white";
+let snake_col = "lightgreen";
+let snake_border = "darkgreen";
 
 let snake = [
   { x: 200, y: 200 },
@@ -28,10 +28,12 @@ let food_y;
 let dx = 10;
 let dy = 0;
 
-// Tick Speed (Only applies when the game difficulty is Fast or Progressive)
+// Tick Speed (Only applies when the Game Mode is Fast or Progressive)
 let tickSpeed = 100;
 // Difficulty (0 is Normal, 1 is Hard, and 2 is Progressive)
 let difficulty = "Normal";
+// Background (There is only Default and Dark)
+let background = "Default";
 
 const snakeboard = document.getElementById("gameCanvas");
 const snakeboard_ctx = gameCanvas.getContext("2d");
@@ -41,6 +43,9 @@ const reset_button = document.getElementById("reset-button");
 const difficulty_button = document.getElementById("difficulty-button");
 const background_button = document.getElementById("background-button");
 const help_button = document.getElementById("help-button");
+
+reset_button.disabled = true;
+difficulty_button.disabled = true;
 
 // ===== MAIN =====
 // Starts the game
@@ -66,6 +71,8 @@ const resetGame = function () {
 
     document.getElementById("score").innerHTML = "Score: " + score;
     document.getElementById("game-over-message").classList.add("hidden");
+    reset_button.disabled = true;
+    difficulty_button.disabled = true;
   }
 };
 
@@ -85,7 +92,45 @@ const adjustDifficulty = function () {
   }
 };
 
+const changeBackground = function () {
+  if (background === "Default") {
+    board_border = "black";
+    board_background = "black";
+    snake_col = "white";
+    snake_border = "black";
+    background = "Dark";
+    clearCanvas();
+    drawFood();
+    snake.forEach(drawSnakePart);
+    document.body.style.backgroundColor = "gray";
+    document.getElementById("game-over-message").style.color = "#fff";
+    background_button.innerHTML = "Background: Dark";
+  } else {
+    board_border = "black";
+    board_background = "white";
+    snake_col = "lightgreen";
+    snake_border = "darkgreen";
+    background = "Default";
+    clearCanvas();
+    drawFood();
+    snake.forEach(drawSnakePart);
+    document.body.style.backgroundColor = "white";
+    document.getElementById("game-over-message").style.color = "#000";
+    background_button.innerHTML = "Background: Default";
+  }
+};
+
+const helpPrompt = function () {
+  alert(
+    "How to play:\n\n- Use the arrow keys to move left, right, up, or down\n- When the game ends, press the ENTER key or click on the restart button to play again\n- You can change the game mode only when the game ends\n\nGame Modes:\n- Normal: Default speed. The game runs as normal\n- Fast: The snake moves twice as fast compared to the default game mode\n- Progressive: The snake moves 5% faster than the default speed every time you get a point"
+  );
+};
+
 difficulty_button.addEventListener("click", adjustDifficulty);
+
+help_button.addEventListener("click", helpPrompt);
+
+background_button.addEventListener("click", changeBackground); // Changes the game's background
 
 reset_button.addEventListener("click", resetGame); // Resets the game if the snake "dies"
 document.addEventListener("keydown", function (e) {
@@ -106,6 +151,8 @@ function main() {
     game_ended = true;
     document.getElementById("top-score").innerHTML = "Top Score: " + topScore;
     document.getElementById("game-over-message").classList.remove("hidden");
+    reset_button.disabled = false;
+    difficulty_button.disabled = false;
     return;
   }
 
@@ -134,8 +181,8 @@ function drawSnake() {
 }
 
 function drawSnakePart(snakePart) {
-  snakeboard_ctx.fillStyle = "lightgreen";
-  snakeboard_ctx.strokestyle = "darkgreen";
+  snakeboard_ctx.fillStyle = snake_col;
+  snakeboard_ctx.strokestyle = snake_border;
   snakeboard_ctx.fillRect(snakePart.x, snakePart.y, 10, 10);
   snakeboard_ctx.strokeRect(snakePart.x, snakePart.y, 10, 10);
 }
