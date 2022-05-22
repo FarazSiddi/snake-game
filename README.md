@@ -6,4 +6,4 @@ The three game work as follows:
 
 - Normal: Default snake speed. The game runs normally
 - Fast: The snake moves twice as fast compared to the default game mode
-- Progressive: The snake moves 5% faster than the default speed every time you get a point
+- Progressive: The snake moves 5% faster than its previous speed every time you get a point

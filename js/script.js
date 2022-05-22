@@ -122,7 +122,7 @@ const changeBackground = function () {
 
 const helpPrompt = function () {
   alert(
-    "How to play:\n\n- Use the arrow keys to move left, right, up, or down\n- When the game ends, press the ENTER key or click on the restart button to play again\n- You can change the game mode only when the game ends\n\nGame Modes:\n- Normal: Default speed. The game runs as normal\n- Fast: The snake moves twice as fast compared to the default game mode\n- Progressive: The snake moves 5% faster than the default speed every time you get a point"
+    "How to play:\n\n- Use the arrow keys to move left, right, up, or down\n- When the game ends, press the ENTER key or click on the restart button to play again\n- You can change the game mode only when the game ends\n\nGame Modes:\n- Normal: Default speed. The game runs as normal\n- Fast: The snake moves twice as fast compared to the default game mode\n- Progressive: The snake moves 5% faster than its previous speed every time you get a point"
   );
 };
 
